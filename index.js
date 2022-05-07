@@ -3,8 +3,14 @@ document.getElementById("loginForm").addEventListener("submit", (event) => {
 })
 
 firebase.auth().onAuthStateChanged((user) => {
-    alert('WELCOME!')
-    location.replace("pages/student/student.html")
+    if(!user){
+        location.replace("pages/invalid.html")
+    }else{
+        // document.getElementById("user").innerHTML = "Hello, "+user.email
+        alert('WELCOME!')
+        location.replace("pages/teacher/take_attendance.html")
+    }
+        
 })
 
 function login() {

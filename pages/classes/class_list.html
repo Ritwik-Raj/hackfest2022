@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class List</title>
+    <link rel="stylesheet" href="class_list.css" />
+</head>
+
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="#about">Logout</a></li>
+            <li><a href="../feedback/feedback.html">Feedback</a></li>
+            <li><a href="../teacher/teacher.html">Home</a></li>
+        </ul>
+    </div>
+    <div>
+        <form id="atndform">
+            <input type="date" id="atndDate">
+            <table>
+                <thead>
+                    <th align="center" height="50" width="100"><b>USN</b></br></th>
+                    <th align="center" height="50" width="100"><b>NAME</b></th>
+                    <th align="center" height="50" width="100"><b>ATTENCANCE</b></th>
+                </thead>
+                <tbody id="atndbody"></tbody>
+            </table>
+        </form>
+    </div>
+
+    
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+    <script src="../../firebase.js"></script>
+    <script src="../../welcome.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyC5mbDpYSlIvvUo4JJn8AKn_nPuNH4QXgw",
+            authDomain: "hale-tracer-315514.firebaseapp.com",
+            databaseURL: "https://hale-tracer-315514-default-rtdb.firebaseio.com",
+            projectId: "hale-tracer-315514",
+            storageBucket: "hale-tracer-315514.appspot.com",
+            messagingSenderId: "456402265928",
+            appId: "1:456402265928:web:9f5ea084fd3e7ea2a6b57d",
+            measurementId: "G-SCPZECS5DJ"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        
+        function addStudentToTable(usn,name){
+            var tbody = document.getElementById("atndbody");
+            var trow = document.createElement('tr');
+            var td1 = document.createElement('td');
+            var td2 = document.createElement('td');
+            var td3 = document.createElement('td');
+            // var td4 = document.createElement('input');
+            // td4.setAttribute('type','radio');
+            // td4.setAttribute('value','present');
+            // td4.setAttribute('name',usn);
+            // var td5 = document.createElement('input');
+            // td5.setAttribute('type','radio');
+            // td5.setAttribute('value','absent');
+            // td5.setAttribute('name',usn);
+
+            // td1=usn;
+            // td2=name;
+            // td3='present'+td4+'absent'+td5;
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            tbody.appendChild(trow);
+        }
+        function selectAllData() {
+            firebase.database().ref('classA').on('value',
+                funcntion(AllRecord){
+                AllRecord.forEach(
+                    function (CurrentRecord) {
+                        var da = CurrentRecord.val().day;
+                        var a = CurrentRecord.val().one;
+                        var b = CurrentRecord.val().two;
+                        var c = CurrentRecord.val().three;
+                        var d = CurrentRecord.val().four;
+                        var e = CurrentRecord.val().five;
+                        var f = CurrentRecord.val().six;
+                        var g = CurrentRecord.val().seven;
+
+                        addItemsToTable(da, a, b, c, d, e, f, g);
+                    }
+                );
+            });
+        }
+
+        window.onload = addStudentToTable('1si20is001','shreyanshu');
+
+
+    </script>
+
+</body>
+
+</html>
